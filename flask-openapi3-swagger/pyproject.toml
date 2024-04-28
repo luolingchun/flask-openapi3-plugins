@@ -26,7 +26,7 @@ dependencies = ["flask-openapi3"]
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/luolingchun/flask-openapi3-plugins/flask-openapi3-swagger"
+Homepage = "https://github.com/luolingchun/flask-openapi3-plugins/tree/master/flask-openapi3-swagger"
 Documentation = "https://luolingchun.github.io/flask-openapi3/latest/Usage/UI_Templates/"
 
 [project.entry-points."flask_openapi3.plugins"]

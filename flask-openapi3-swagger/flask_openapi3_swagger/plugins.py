@@ -31,14 +31,13 @@ class RegisterPlugin(BasePlugin):
             static_folder=static_folder
         )
 
-        swagger_config = config
         blueprint.add_url_rule(
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
                 swagger_html_string,
                 doc_url=doc_url,
-                swagger_config=swagger_config,
+                swagger_config=config,
                 oauth_config=oauth_config
             )
         )
