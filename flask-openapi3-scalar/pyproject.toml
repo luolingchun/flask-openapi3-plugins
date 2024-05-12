@@ -1,7 +1,7 @@
 [project]
 name = "flask-openapi3-scalar"
 description = "Provide Scalar UI for flask-openapi3."
-readme = { text = "Provide Scalar UI for flask-openapi3.", content-type = "text/plain" }
+readme = { text = "Provide Scalar UI for [flask-openapi3](https://github.com/luolingchun/flask-openapi3).", content-type = "text/markdown" }
 license = { text = "MIT" }
 maintainers = [{ name = "llc", email = "luolingchun@outlook.com" }]
 classifiers = [
