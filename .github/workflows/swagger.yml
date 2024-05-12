@@ -45,13 +45,14 @@ jobs:
             curl -L https://cdn.jsdelivr.net/npm/swagger-ui-dist@${new_version}/swagger-ui-standalone-preset.js \
                  -o ./templates/swagger/js/swagger-ui-standalone-preset.js
             echo -e "# -*- coding: utf-8 -*-\n\n__version__ = \"${new_version}\"" > __version__.py
-            echo "::set-output name=new_version::${new_version}"
+            echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+            echo "is_update=true" >> $GITHUB_OUTPUT
           else
-            exit 1
+            echo "is_update=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Git Commit
-        if: ${{ steps.update_swagger.outcome == 'success' }}
+        if: ${{ steps.update_swagger.outputs.is_update == 'true' }}
         id: git_commit
         run: |
           new_version=${{ steps.update_swagger.outputs.new_version }}
