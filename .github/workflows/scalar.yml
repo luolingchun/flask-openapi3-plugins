@@ -1,4 +1,4 @@
-name: Check for new release
+name: Check scalar
 
 on:
   schedule:

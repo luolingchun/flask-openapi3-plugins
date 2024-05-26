@@ -18,7 +18,7 @@ scalar_html_string = """
         data-url="{{ doc_url }}">
         </script>
         <script>
-        const scalar_config = JSON.parse(`{{ scalar_config|tojson }}`);
+        const scalar_config = JSON.parse(`{{ scalar_config|default('{}')|tojson }}`);
         var configuration = {...scalar_config};
         var apiReference = document.getElementById('api-reference');
         apiReference.dataset.configuration = JSON.stringify(configuration);
