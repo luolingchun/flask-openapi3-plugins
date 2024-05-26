@@ -2,9 +2,8 @@
 # @Author  : llc
 # @Time    : 2024/4/22 16:13
 import os
-from typing import Dict, Any, Optional
 
-from flask import Blueprint, render_template_string
+from flask import Blueprint, render_template_string, current_app
 from flask_openapi3.plugins import BasePlugin
 
 from .templates import swagger_html_string, swagger_oauth2_redirect_html_string
@@ -15,12 +14,7 @@ class RegisterPlugin(BasePlugin):
     display_name = "Swagger"
 
     @classmethod
-    def register(
-            cls,
-            doc_url: str,
-            config: Optional[Dict[str, Any]] = None,
-            oauth_config: Optional[Dict[str, Any]] = None
-    ) -> Blueprint:
+    def register(cls, doc_url: str) -> Blueprint:
         _here = os.path.dirname(__file__)
         template_folder = os.path.join(_here, "templates")
         static_folder = os.path.join(template_folder, cls.name)
@@ -35,10 +29,10 @@ class RegisterPlugin(BasePlugin):
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
-                swagger_html_string,
+                current_app.config.get("SWAGGER_HTML_STRING") or swagger_html_string,
                 doc_url=doc_url,
-                swagger_config=config,
-                oauth_config=oauth_config
+                swagger_config=current_app.config.get("SWAGGER_CONFIG"),
+                oauth_config=current_app.config.get("OAUTH_CONFIG")
             )
         )
         blueprint.add_url_rule(

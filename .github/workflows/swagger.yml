@@ -1,4 +1,4 @@
-name: Check for new release
+name: Check swagger
 
 on:
   schedule:

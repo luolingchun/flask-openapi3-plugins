@@ -31,7 +31,7 @@ swagger_html_string = """
 <script src="swagger/js/swagger-ui-bundle.js"></script>
 <script src="swagger/js/swagger-ui-standalone-preset.js"></script>
 <script>
-    const swagger_config = JSON.parse(`{{ swagger_config|tojson }}`);
+    const swagger_config = JSON.parse(`{{ swagger_config|default('{}')|tojson }}`);
     url = new URL("{{doc_url}}", window.location.href).href;
     window.onload = function () {
         // Begin Swagger UI call region
@@ -54,7 +54,7 @@ swagger_html_string = """
         ...swagger_config
         })
         // End Swagger UI call region
-        const oauthConfig = JSON.parse(`{{ oauth_config|tojson }}`);
+        const oauthConfig = {{ oauth_config|tojson }};
         if (oauthConfig != null) {
             window.ui.initOAuth({
                 clientId: oauthConfig.clientId,
