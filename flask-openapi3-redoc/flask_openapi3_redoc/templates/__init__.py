@@ -3,7 +3,7 @@ redoc_html_string = """
 <html lang="en">
 <head>
     <title>ReDoc</title>
-    <link rel="shortcut icon" href="static/images/redoc.svg">
+    <link rel="shortcut icon" href="redoc/images/redoc.svg">
     <!-- needed for adaptive design -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,8 +17,14 @@ redoc_html_string = """
     </style>
 </head>
 <body>
-<redoc spec-url='{{ doc_url }}'></redoc>
-<script src="static/js/redoc.standalone.js"></script>
+  <div id="redoc"></div>
+  <script src="redoc/js/redoc.standalone.js"></script>
+  <script>
+    const redoc_config = JSON.parse(`{{ redoc_config|default('{}')|tojson }}`);
+    Redoc.init(
+      "{{ doc_url }}", redoc_config,
+      document.getElementById("redoc"))
+  </script>
 </body>
 </html>
 """
