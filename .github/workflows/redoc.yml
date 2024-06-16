@@ -38,7 +38,7 @@ jobs:
           old_version=$(cat __version__.py | grep -oP '(?<=__version__ = ").*(?=")')
           new_version=$(npm show redoc version)
           if [ "${new_version}" != "${old_version}" ]; then
-            curl -L https://cdn.jsdelivr.net/npm/redoc@${new_version}/bundles/redoc.browser.lib.min.js \
+            curl -L https://cdn.jsdelivr.net/npm/redoc@${new_version}/bundles/redoc.standalone.js \
                  -o ./templates/redoc/js/redoc.standalone.js
             echo -e "# -*- coding: utf-8 -*-\n\n__version__ = \"${new_version}\"" > __version__.py
             echo "new_version=${new_version}" >> $GITHUB_OUTPUT
