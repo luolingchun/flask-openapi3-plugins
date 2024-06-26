@@ -36,7 +36,7 @@ class RegisterPlugin(BasePlugin):
             )
         )
         blueprint.add_url_rule(
-            rule=f"/{cls.name}/oauth2-redirect",
+            rule=f"/oauth2-redirect.html",
             endpoint="oauth2-redirect",
             view_func=lambda: render_template_string(
                 swagger_oauth2_redirect_html_string
