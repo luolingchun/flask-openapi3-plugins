@@ -2,7 +2,7 @@ name: Check elements
 
 on:
   schedule:
-    - cron: "20 0 * * *"
+    - cron: "30 0 * * *"
 
 jobs:
   deploy:
@@ -36,7 +36,7 @@ jobs:
         run: |
           cd ./flask-openapi3-elements/flask_openapi3_elements
           old_version=$(cat __version__.py | grep -oP '(?<=__version__ = ").*(?=")')
-          new_version=$(npm show elements version)
+          new_version=$(npm show @stoplight/elements version)
           if [ "${new_version}" != "${old_version}" ]; then
             curl -L https://cdn.jsdelivr.net/npm/@stoplight/elements@${new_version}/web-components.min.js \
                  -o ./templates/elements/js/web-components.min.js
