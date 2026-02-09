@@ -4,14 +4,14 @@
 import os
 
 from flask import Blueprint, render_template_string, current_app
-from flask_openapi3.plugins import BasePlugin
+from flask_openapi.plugins import BasePlugin
 
-from .templates import scalar_html_string
+from .templates import redoc_html_string
 
 
 class RegisterPlugin(BasePlugin):
-    name = "scalar"
-    display_name = "Scalar"
+    name = "redoc"
+    display_name = "Redoc"
 
     @classmethod
     def register(cls, doc_url: str) -> Blueprint:
@@ -29,9 +29,9 @@ class RegisterPlugin(BasePlugin):
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
-                current_app.config.get("SCALAR_HTML_STRING") or scalar_html_string,
+                current_app.config.get("REDOC_HTML_STRING") or redoc_html_string,
                 doc_url=doc_url,
-                scalar_config=current_app.config.get("SCALAR_CONFIG")
+                redoc_config=current_app.config.get("REDOC_CONFIG")
             )
         )
 

@@ -10,31 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-      TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
 
     steps:
       - uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
-          python-version: '3.x'
+          enable-cache: false
 
       - name: Set up Node
         uses: actions/setup-node@v6
-        with:
-          node-version: '20'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build twine
-
-      - name: Update flask-openapi3-scalar
+      - name: Update flask-openapi-scalar
         id: update_scalar
         run: |
-          cd ./flask-openapi3-scalar/flask_openapi3_scalar
+          cd ./flask-openapi-scalar/flask_openapi_scalar
           old_version=$(cat __version__.py | grep -oP '(?<=__version__ = ").*(?=")')
           new_version=$(npm show @scalar/api-reference version)
           if [ "${new_version}" != "${old_version}" ]; then
@@ -56,11 +48,11 @@ jobs:
           git config --local user.name "GitHub Action"
           git add .
           git commit -m "Update scalar ${new_version}"
-          git push origin master
+          git push origin main
 
-      - name: Release flask-openapi3-scalar
+      - name: Release flask-openapi-scalar
         if: ${{ steps.git_commit.outcome == 'success' }}
         run: |
-          cd flask-openapi3-scalar
-          python -m build
-          twine upload dist/*
+          cd flask-openapi-scalar
+          uv build
+          uv publish

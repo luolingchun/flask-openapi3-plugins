@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
-# @Author  : llc
-# @Time    : 2024/4/22 16:13
 import os
 
 from flask import Blueprint, render_template_string, current_app
-from flask_openapi3.plugins import BasePlugin
+from flask_openapi.plugins import BasePlugin
 
-from .templates import redoc_html_string
+from .templates import rapipdf_html_string
 
 
 class RegisterPlugin(BasePlugin):
-    name = "redoc"
-    display_name = "Redoc"
+    name = "rapipdf"
+    display_name = "RapiPDF"
 
     @classmethod
     def register(cls, doc_url: str) -> Blueprint:
@@ -29,9 +26,9 @@ class RegisterPlugin(BasePlugin):
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
-                current_app.config.get("REDOC_HTML_STRING") or redoc_html_string,
+                current_app.config.get("RAPIPDF_HTML_STRING") or rapipdf_html_string,
                 doc_url=doc_url,
-                redoc_config=current_app.config.get("REDOC_CONFIG")
+                rapipdf_config=current_app.config.get("RAPIPDF_CONFIG")
             )
         )
 

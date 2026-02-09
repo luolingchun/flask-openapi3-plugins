@@ -1,7 +1,7 @@
 [project]
-name = "flask-openapi3-scalar"
-description = "Provide Scalar UI for flask-openapi3."
-readme = { text = "Provide Scalar UI for [flask-openapi3](https://github.com/luolingchun/flask-openapi3).", content-type = "text/markdown" }
+name = "flask-openapi-elements"
+description = "Provide Stoplight Elements UI for flask-openapi."
+readme = { text = "Provide Stoplight Elements UI for [flask-openapi](https://github.com/luolingchun/flask-openapi).", content-type = "text/markdown" }
 license = { text = "MIT" }
 maintainers = [{ name = "llc", email = "luolingchun@outlook.com" }]
 classifiers = [
@@ -22,26 +22,26 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only"
 ]
 requires-python = ">=3.8"
-dependencies = ["flask-openapi3"]
+dependencies = ["flask-openapi"]
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/luolingchun/flask-openapi3-plugins/tree/master/flask-openapi3-scalar"
-Documentation = "https://luolingchun.github.io/flask-openapi3/latest/Usage/UI_Templates/"
+Homepage = "https://github.com/luolingchun/flask-openapi-plugins/tree/master/flask-openapi-elements"
+Documentation = "https://luolingchun.github.io/flask-openapi/latest/Usage/UI_Templates/"
 
-[project.entry-points."flask_openapi3.plugins"]
-register = "flask_openapi3_scalar.plugins.RegisterPlugin"
+[project.entry-points."flask_openapi.plugins"]
+register = "flask_openapi_elements.plugins.RegisterPlugin"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "flask_openapi3_scalar/__version__.py"
+path = "flask_openapi_elements/__version__.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/flask_openapi3_scalar"
+    "/flask_openapi_elements"
 ]
 
 

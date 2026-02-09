@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
-# @Author  : llc
-# @Time    : 2024/4/22 16:13
 import os
 
 from flask import Blueprint, render_template_string, current_app
-from flask_openapi3.plugins import BasePlugin
+from flask_openapi.plugins import BasePlugin
 
-from .templates import swagger_html_string, swagger_oauth2_redirect_html_string
+from .templates import rapidoc_html_string
 
 
 class RegisterPlugin(BasePlugin):
-    name = "swagger"
-    display_name = "Swagger"
+    name = "rapidoc"
+    display_name = "RapiDoc"
 
     @classmethod
     def register(cls, doc_url: str) -> Blueprint:
@@ -29,17 +26,10 @@ class RegisterPlugin(BasePlugin):
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
-                current_app.config.get("SWAGGER_HTML_STRING") or swagger_html_string,
+                current_app.config.get("RAPIDOC_HTML_STRING") or rapidoc_html_string,
                 doc_url=doc_url,
-                swagger_config=current_app.config.get("SWAGGER_CONFIG"),
-                oauth_config=current_app.config.get("OAUTH_CONFIG")
+                rapidoc_config=current_app.config.get("RAPIDOC_CONFIG")
             )
         )
-        blueprint.add_url_rule(
-            rule=f"/oauth2-redirect.html",
-            endpoint="oauth2-redirect",
-            view_func=lambda: render_template_string(
-                swagger_oauth2_redirect_html_string
-            )
-        )
+
         return blueprint

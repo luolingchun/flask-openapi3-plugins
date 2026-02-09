@@ -1,14 +1,14 @@
 import os
 
 from flask import Blueprint, render_template_string, current_app
-from flask_openapi3.plugins import BasePlugin
+from flask_openapi.plugins import BasePlugin
 
-from .templates import rapidoc_html_string
+from .templates import elements_html_string
 
 
 class RegisterPlugin(BasePlugin):
-    name = "rapidoc"
-    display_name = "RapiDoc"
+    name = "elements"
+    display_name = "Elements"
 
     @classmethod
     def register(cls, doc_url: str) -> Blueprint:
@@ -26,9 +26,9 @@ class RegisterPlugin(BasePlugin):
             rule=f"/{cls.name}",
             endpoint=cls.name,
             view_func=lambda: render_template_string(
-                current_app.config.get("RAPIDOC_HTML_STRING") or rapidoc_html_string,
+                current_app.config.get("ELEMENTS_HTML_STRING") or elements_html_string,
                 doc_url=doc_url,
-                rapidoc_config=current_app.config.get("RAPIDOC_CONFIG")
+                elements_config=current_app.config.get("ELEMENTS_CONFIG")
             )
         )
 
